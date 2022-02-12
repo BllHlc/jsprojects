@@ -78,8 +78,16 @@ class IU {
               </button>
             </div>
           </div>
-        </div>`
-    })
+        </div>`;
+    });
   }
-
+  addSearchedUserToUI(username) {
+    let users = StorageData.getSearchedUsersFromStorage();
+    if (users.indexOf(username) === -1) {
+      const li = document.createElement("li");
+      li.className = "list-group-item";
+      li.textContent = username;
+      this.lastUsers.appendChild(li);
+    }
+  }
 }

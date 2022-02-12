@@ -24,7 +24,7 @@ function getData(e) {
         if (response.user.message === "Not Found") {
           ui.showError("Kullanıcı Bulunamadı");
         } else {
-          ui.addSearchedUserToUi(username);
+          ui.addSearchedUserToUI(username);
           StorageData.addSearchedUserToStorage(username);
           ui.showUserInfo(response.user);
           ui.showRepoInfo(response.repo);
@@ -37,9 +37,18 @@ function getData(e) {
 }
 
 function clearAllSearched() {
-
+  if (confirm("Emin misiniz?")) {
+    StorageData.clearAllSearchedUsersFromStorage();
+    getAllSearched();
+  }
 }
 
-function getAllSearched() {
 
+function getAllSearched() {
+  let users = StorageData.getSearchedUsersFromStorage();
+  let result = "";
+  users.forEach(user => {
+    result += `<li class="list-group-item">${user}</li>`;
+  });
+  lastUsers.innerHTML = result;
 }
